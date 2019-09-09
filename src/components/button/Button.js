@@ -17,13 +17,13 @@ const useStyles = makeStyles({
 		fontSize: '1rem',
 		cursor: 'pointer',
 		textAlign: 'center',
-		transition: 'color 250ms ease-in-out fill 250ms ease-in-out transform 150ms ease',
+		transition: 'color 250ms ease-out, fill 250ms ease-ou ',
 		'-webkit-appearance': 'none',
 		'-moz-appearance': 'none',
 		'&:hover': {
 			outline: 'white',
 			color: 'white',
-			transition: 'color 250ms ease-in-out fill 250ms ease-in-out transform 150ms ease',
+			transition: 'color 250ms ease-in, fill 250ms ease-in ',
 			fill: 'white',
 		},
 		'&:active': {
@@ -33,8 +33,7 @@ const useStyles = makeStyles({
 			border: '1px solid white',
 		},
 		'&:focus': {
-			outline: '1px solid #fff',
-			outlineOffset: '-4px',
+			outline: 'white',
 		},
 	},
 });
