@@ -8,9 +8,11 @@ import { mdiAccount } from '@mdi/js';
 const useStyles = makeStyles({
 	headerRoot: {
 		display: 'flex',
-		alignItems: 'center',
+		alignItems: 'stretch',
 		height: '50px',
-		backgroundColor: 'blue',
+		backgroundColor: '#606060',
+		color: 'black',
+		fill: 'black',
 	},
 });
 export const Header = () => {
