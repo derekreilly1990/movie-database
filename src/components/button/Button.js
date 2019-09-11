@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import Icon from '@mdi/react';
-import { mdiAccount } from '@mdi/js';
+import classNames from 'classnames';
 
 const useStyles = makeStyles({
 	button: {
@@ -17,31 +17,42 @@ const useStyles = makeStyles({
 		fontSize: '1rem',
 		cursor: 'pointer',
 		textAlign: 'center',
-		transition: 'color 250ms ease-out, fill 250ms ease-ou ',
+		transition: 'color 200ms ease-in, fill 200ms ease-in ',
 		'-webkit-appearance': 'none',
 		'-moz-appearance': 'none',
-		'&:hover': {
-			outline: 'white',
-			color: 'white',
-			transition: 'color 250ms ease-in, fill 250ms ease-in ',
-			fill: 'white',
-		},
 		'&:active': {
-			outline: 'white',
 			color: 'white',
 			fill: 'white',
-			border: '1px solid white',
+			outline: 'none',
+			transition: 'color 200ms ease-in, fill 200ms ease-in ',
+		},
+		'&:hover': {
+			color: 'lightGrey',
+			transition: 'color 200ms ease-in, fill 200ms ease-in ',
+			fill: 'lightGrey',
 		},
 		'&:focus': {
-			outline: 'white',
+			outline: 'none',
+			transition: 'color 200ms ease-in, fill 200ms ease-in ',
 		},
+	},
+	active: {
+		outline: 'none',
+		color: 'white',
+		fill: 'white',
+		transition: 'color 200ms ease-in, fill 200ms ease-in ',
 	},
 });
 export const Button = (props) => {
 	const classes = useStyles();
+	const buttonClassNames = classNames({
+		[classes.button]: true,
+		[classes.active]: props.isActive,
+	});
+
 	return (
-		<button className={classes.button}>
-			<Icon path={mdiAccount} size={'2rem'} title={props.label} />
+		<button className={buttonClassNames} onClick={props.onClick}>
+			<Icon path={props.icon} size={'2rem'} title={props.label} />
 			{props.label}
 		</button>
 	);

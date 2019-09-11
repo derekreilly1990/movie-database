@@ -1,15 +1,16 @@
 import React from 'react';
 import './Header.css';
 import { makeStyles } from '@material-ui/styles';
-import { Button } from '../button';
 import Icon from '@mdi/react';
-import { mdiAccount } from '@mdi/js';
+import { HeaderButton } from './header-button/HeaderButton';
+import { mdiHome } from '@mdi/js';
+import { routes } from '../../utils/routes';
 
 const useStyles = makeStyles({
 	headerRoot: {
 		display: 'flex',
+		flex: '0 1 50px',
 		alignItems: 'stretch',
-		height: '50px',
 		backgroundColor: '#606060',
 		color: 'black',
 		fill: 'black',
@@ -20,10 +21,10 @@ export const Header = () => {
 
 	return (
 		<header className={classes.headerRoot}>
-			<Icon path={mdiAccount} title={'Home'} size={'50px'} />
-			<Button label={'Discover'} />
-			<Button label={'Movies'} />
-			<Button label={'Series'} />
+			<Icon path={mdiHome} title={'Home'} size={'50px'} />
+			{routes.map((route, index) => {
+				return <HeaderButton key={route.label} to={route.path} label={route.label} icon={route.icon} index={index} />;
+			})}
 		</header>
 	);
 };
