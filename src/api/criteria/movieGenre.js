@@ -1,0 +1,18 @@
+export const movieGenre = {
+	Action: '&with_genres=28',
+	Adventure: '&with_genres=12',
+	Animation: '&with_genres=35',
+	Crime: '&with_genres=80',
+	Doc: '&with_genres=99',
+	Drama: '&with_genres=18',
+	Family: '&with_genres=28',
+	Fantasy: '&with_genres=28',
+	Horror: '&with_genres=27',
+	Music: '&with_genres=10402',
+	Mystery: '&with_genres=9648',
+	Romance: '&with_genres=10749',
+	ScienceFiction: '&with_genres=878',
+	Thriller: '&with_genres=53',
+	War: '&with_genres=10752',
+	Western: '&with_genres=37',
+};

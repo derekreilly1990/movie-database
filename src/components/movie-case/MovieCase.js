@@ -1,39 +1,39 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import classNames from 'classnames';
+import { apiConstants } from '../../api/apiConstants';
 
 const useStyles = makeStyles({
-	headerRoot: {
-		display: 'flex',
-		flex: '0 1 50px',
-		alignItems: 'stretch',
-		backgroundColor: '#606060',
-		color: 'black',
-		fill: 'black',
+	case: {
+		width: '220px',
+		height: '330px',
 	},
-	container: {
-		display: 'flex',
-		width: '200px',
-	},
-	turnCase: {
+	turned: {
 		transform: 'rotateY( 50deg )',
 		boxShadow: '-10px 10px 10px 2px rgba(0,0,0,.2), -2px 0px 0px 0px #888',
 		transition: 'all 0.5s',
 		transitionDelay: '0.05s',
 	},
+	caseWrap: {
+		padding: '10px',
+	},
 });
-export const MovieCase = () => {
+export const MovieCase = (props) => {
 	const classes = useStyles();
 	const [turned, setTurned] = useState(false);
+
+	const imageUrl = apiConstants.baseImageUrl500 + props.movie.poster_path;
+
 	return (
-		<div className={classes.container}>
+		<div className={classes.caseWrap}>
 			<img
-				alt={'image'}
-				src={
-					'https://m.media-amazon.com/images/M/MV5BN2MwNjJlODAtMTc1MS00NjkwLTg2NDMtYzFjZmU2MGM1YWUwXkEyXkFqcGdeQXVyMTYzMDM0NTU@._V1_SX300.jpg'
-				}
-				onClick={() => setTurned(!turned)}
-				className={classNames(turned ? classes.turnCase : undefined)}
+				alt={props.index}
+				src={imageUrl}
+				onClick={() => {
+					setTurned(!turned);
+					props.onClick(props.movie);
+				}}
+				className={classNames(classes.case)}
 			/>
 		</div>
 	);

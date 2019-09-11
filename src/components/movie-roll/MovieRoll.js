@@ -1,22 +1,66 @@
-import React from 'react';
+import React, { Suspense, useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
+import Slider from 'react-slick';
+import { MovieCase } from '../movie-case/MovieCase';
+import { useFetch } from 'react-hooks-fetch';
+import { MovieDetails } from '../movie-details/MovieDetails';
+import { Spin } from 'antd';
 
 const useStyles = makeStyles({
-	constainer: {
-		display: 'flex',
-	},
 	container: {
-		display: 'flex',
-		width: '200px',
-	},
-	turnCase: {
-		transform: 'rotateY( 50deg )',
-		boxShadow: '-10px 10px 10px 2px rgba(0,0,0,.2), -2px 0px 0px 0px #888',
-		transition: 'all 0.5s',
-		transitionDelay: '0.05s',
+		//height: '350px',
+		paddingLeft: '5em',
+		paddingRight: '5em',
+		overflow: 'hidden',
 	},
 });
-export const MovieRoll = () => {
+
+const Err = ({ error }) => <span>Oops Something Went Wrong:{error.message}</span>;
+
+export const MovieRoll = (props) => {
 	const classes = useStyles();
-	return <div className={classes.container} />;
+	const [activeMovie, setActiveMovie] = useState(undefined);
+
+	const handleMovieClicked = (movie) => {
+		console.log('Movie clicked', movie);
+		if (activeMovie === movie) {
+			setActiveMovie(undefined);
+		} else {
+			setActiveMovie(movie);
+		}
+	};
+
+	return (
+		<>
+			<div className={classes.container}>
+				<Suspense fallback={<Spin size="large" />}>
+					<h2> {props.title}</h2>
+					<SliderThing {...props} onMovieClick={handleMovieClicked} />
+				</Suspense>
+			</div>
+			{activeMovie && <MovieDetails movie={activeMovie} isSeries={props.isSeries} />}
+		</>
+	);
+};
+
+const SliderThing = (props) => {
+	const url = props.url;
+	const { error, data } = useFetch(url);
+	if (error) return <Err error={error} />;
+	if (!data) return null;
+	if (!data.results && !data.results.length) return null;
+	const settings = {
+		infinite: true,
+		speed: 500,
+		//slidesToShow: 3,
+		slidesToScroll: 1,
+		variableWidth: true,
+	};
+	return (
+		<Slider {...settings}>
+			{data.results.map((movie, index) => (
+				<MovieCase key={index} index={index} movie={movie} onClick={props.onMovieClick} />
+			))}
+		</Slider>
+	);
 };

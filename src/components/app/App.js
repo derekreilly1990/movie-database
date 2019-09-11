@@ -9,19 +9,28 @@ const useStyles = makeStyles({
 	root: {
 		display: 'flex',
 		flexDirection: 'column',
-		backgroundColor: 'darkGrey',
 		color: 'white',
 		height: '100%',
+		overflowY: 'scroll',
 	},
 	main: {
 		flex: 1,
 		alignItems: 'stretch',
 		display: 'flex',
+		flexDirection: 'column',
+		overflowY: 'visible',
+		backgroundColor: 'black' /* For browsers that do not support gradients */,
+		backgroundImage: 'linear-gradient(black, grey)' /* Standard syntax (must be last) */,
 	},
 });
 
 export const App = () => {
 	const classes = useStyles();
+
+	const calls = {
+		trendingThisWeek: '',
+	};
+
 	return (
 		<Router>
 			<div className={classes.root}>
