@@ -1,11 +1,11 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles';
 import './app.css';
-import {Header} from '../header';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
-import {Footer} from '../footer/Footer';
-import {routes} from '../../utils/routes';
-import {Movies} from '../movies/Movies';
+import { Header } from '../header';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Footer } from '../footer/Footer';
+import { routes } from '../../utils/routes';
+import { Movies } from '../movies/Movies';
 
 const useStyles = makeStyles({
 	root: {

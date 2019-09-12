@@ -20,6 +20,13 @@ const useStyles = makeStyles({
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 	},
+	topContainer: {
+		display: 'flex',
+	},
+	titleContainer: {
+		display: 'flex',
+		flexDirection: 'column',
+	},
 	metrics: {
 		display: 'flex',
 		flexWrap: 'wrap',
@@ -35,16 +42,32 @@ const useStyles = makeStyles({
 	color: {
 		color: 'white',
 	},
+	imageContainer: {
+		flex: 2,
+		display: 'flex',
+		justifyContent: 'flex-end',
+	},
+	image: {
+		alignSelf: 'flex-end',
+	},
 });
 export const MovieDetails = (props) => {
 	const classes = useStyles(props);
+	const imgUrl = apiConstants.baseImageUrl500 + props.movie.backdrop_path;
 	console.log('details', props.movie);
 
 	return (
 		<>
 			<div className={classes.container}>
-				<h2 className={classes.color}>{props.movie.title || props.movie.original_name}</h2>
-				<h3 className={classes.color}>{props.movie.release_date || props.movie.first_air_date}</h3>
+				<div className={classes.topContainer}>
+					<div className={classes.titleContainer}>
+						<h2 className={classes.color}>{props.movie.title || props.movie.original_name}</h2>
+						<h3 className={classes.color}>{props.movie.release_date || props.movie.first_air_date}</h3>
+					</div>
+					<div className={classes.imageContainer}>
+						<img src={imgUrl} className={classes.image} />
+					</div>
+				</div>
 				<p>{props.movie.overview}</p>
 				<Suspense fallback={<Spin size="large" />}>
 					<DetailsPane {...props} />
