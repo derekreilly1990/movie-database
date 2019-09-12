@@ -1,11 +1,11 @@
-import React, { Suspense, useState } from 'react';
-import { makeStyles } from '@material-ui/styles';
-import { apiConstants } from '../../api/apiConstants';
-import { useFetch } from 'react-hooks-fetch';
-import { language } from '../../api/criteria/language';
+import React, {Suspense} from 'react';
+import {makeStyles} from '@material-ui/styles';
+import {apiConstants} from '../../api/apiConstants';
+import {useFetch} from 'react-hooks-fetch';
+import {language} from '../../api/criteria/language';
 import Icon from '@mdi/react';
-import { mdiClockOutline, mdiCurrencyUsd, mdiVoteOutline, mdiWeb } from '@mdi/js';
-import { Spin } from 'antd';
+import {mdiClockOutline, mdiCurrencyUsd, mdiVoteOutline, mdiWeb} from '@mdi/js';
+import {Spin} from 'antd';
 
 const useStyles = makeStyles({
 	container: {
@@ -32,6 +32,9 @@ const useStyles = makeStyles({
 		display: 'flex',
 		alignItems: 'center',
 	},
+	color: {
+		color: 'white',
+	},
 });
 export const MovieDetails = (props) => {
 	const classes = useStyles(props);
@@ -40,8 +43,8 @@ export const MovieDetails = (props) => {
 	return (
 		<>
 			<div className={classes.container}>
-				<h2>{props.movie.title || props.movie.original_name}</h2>
-				<h3>{props.movie.release_date || props.movie.first_air_date}</h3>
+				<h2 className={classes.color}>{props.movie.title || props.movie.original_name}</h2>
+				<h3 className={classes.color}>{props.movie.release_date || props.movie.first_air_date}</h3>
 				<p>{props.movie.overview}</p>
 				<Suspense fallback={<Spin size="large" />}>
 					<DetailsPane {...props} />
@@ -61,7 +64,8 @@ const DetailsPane = (props) => {
 	//https://api.themoviedb.org/3/movie/3840181d4403ab00da4975659f1d2dc8d6e841&language=en-US
 	console.log(movieDetailUrl);
 	const { error, data } = useFetch(movieDetailUrl);
-	if (!data) return null;
+
+	if (!data || error) return null;
 	console.log('Details', data);
 	return (
 		<>

@@ -13,6 +13,9 @@ const useStyles = makeStyles({
 		paddingRight: '5em',
 		overflow: 'hidden',
 	},
+	heading: {
+		color: 'white',
+	},
 });
 
 const Err = ({ error }) => <span>Oops Something Went Wrong:{error.message}</span>;
@@ -33,8 +36,8 @@ export const MovieRoll = (props) => {
 	return (
 		<>
 			<div className={classes.container}>
+				<h2 className={classes.heading}> {props.title}</h2>
 				<Suspense fallback={<Spin size="large" />}>
-					<h2> {props.title}</h2>
 					<SliderThing {...props} onMovieClick={handleMovieClicked} />
 				</Suspense>
 			</div>

@@ -1,6 +1,5 @@
 import { apiConstants } from './apiConstants';
 import { language } from './criteria/language';
-import { movieGenre } from './criteria/movieGenre';
 import { tvGenre } from './criteria/tvGenre';
 
 export const tvCategories = [

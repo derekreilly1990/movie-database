@@ -21,13 +21,12 @@ const useStyles = makeStyles({
 export const MovieCase = (props) => {
 	const classes = useStyles();
 	const [turned, setTurned] = useState(false);
-
 	const imageUrl = apiConstants.baseImageUrl500 + props.movie.poster_path;
 
 	return (
 		<div className={classes.caseWrap}>
 			<img
-				alt={props.index}
+				alt={props.movie.title}
 				src={imageUrl}
 				onClick={() => {
 					setTurned(!turned);
