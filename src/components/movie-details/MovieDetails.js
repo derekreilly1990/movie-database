@@ -65,7 +65,7 @@ export const MovieDetails = (props) => {
 						<h3 className={classes.color}>{props.movie.release_date || props.movie.first_air_date}</h3>
 					</div>
 					<div className={classes.imageContainer}>
-						<img src={imgUrl} className={classes.image} />
+						<img alt={props.movie.title} src={imgUrl} className={classes.image} />
 					</div>
 				</div>
 				<p>{props.movie.overview}</p>
