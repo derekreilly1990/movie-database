@@ -1,11 +1,11 @@
-import React, {Suspense} from 'react';
-import {makeStyles} from '@material-ui/styles';
-import {apiConstants} from '../../api/apiConstants';
-import {useFetch} from 'react-hooks-fetch';
-import {language} from '../../api/criteria/language';
+import React, { Suspense } from 'react';
+import { makeStyles } from '@material-ui/styles';
+import { apiConstants } from '../../api/apiConstants';
+import { useFetch } from 'react-hooks-fetch';
+import { language } from '../../api/criteria/language';
 import Icon from '@mdi/react';
-import {mdiClockOutline, mdiCurrencyUsd, mdiVoteOutline, mdiWeb} from '@mdi/js';
-import {Spin} from 'antd';
+import { mdiClockOutline, mdiCurrencyUsd, mdiVoteOutline, mdiWeb } from '@mdi/js';
+import { Spin } from 'antd';
 
 const useStyles = makeStyles({
 	container: {

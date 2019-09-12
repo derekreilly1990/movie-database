@@ -6,7 +6,9 @@ import { MovieDetails } from '../movie-details/MovieDetails';
 import { SearchPanel } from '../search-panel/SearchPanel';
 import { apiConstants } from '../../api/apiConstants';
 import { sortBy } from '../../api/criteria/sortBy';
-import { Spin } from 'antd';
+import { Input, Spin } from 'antd';
+
+const { Search } = Input;
 
 const useStyles = makeStyles({
 	container: {
@@ -42,6 +44,14 @@ export const Discover = () => {
 
 	return (
 		<>
+			<Search
+				placeholder="input search text"
+				enterButton="Search"
+				size="large"
+				onSearch={(value) =>
+					setSearchString(apiConstants.searcMovieBaseUrl + apiConstants.urlApiKey + '&query=' + value)
+				}
+			/>
 			<div className={classes.container}>
 				<SearchPanel setSearchString={setSearchString} />
 				<div>

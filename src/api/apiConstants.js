@@ -4,6 +4,7 @@ export const apiConstants = {
 	baseImageUrl500: 'https://image.tmdb.org/t/p/w500',
 	baseImageUrlOrig: 'https://image.tmdb.org/t/p/w780',
 	movieBaseUrl: 'https://api.themoviedb.org/3/movie/',
+	searcMovieBaseUrl: 'https://api.themoviedb.org/3/search/movie',
 	tvBaseUrl: 'https://api.themoviedb.org/3/tv/',
 	nowPlayingBaseUrl: 'https://api.themoviedb.org/3/movie/now_playing',
 	movieDiscoverBaseUrl: 'https://api.themoviedb.org/3/discover/movie',
