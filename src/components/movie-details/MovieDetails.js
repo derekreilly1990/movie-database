@@ -67,7 +67,10 @@ export const MovieDetails = (props) => {
 						<p>{props.movie.overview}</p>
 					</div>
 					<div className={classes.imageContainer}>
-						<img alt={props.movie.title || props.movie.original_name} src={imgUrl} className={classes.image} />
+						{props.movie.title ||
+							(props.movie.original_name && (
+								<img alt={props.movie.title || props.movie.original_name} src={imgUrl} className={classes.image} />
+							))}
 					</div>
 				</div>
 				<Suspense fallback={<Spin size="large" />}>
