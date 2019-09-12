@@ -11,8 +11,8 @@ const useStyles = makeStyles({
 	container: {
 		minHeight: '350px',
 		margin: '5em',
-		borderRadius: '20px',
-		border: '2px Solid white',
+		borderRadius: '3px',
+		border: '1px solid white',
 		background: 'black ',
 		padding: '2em',
 		overflow: 'hidden',
@@ -30,9 +30,11 @@ const useStyles = makeStyles({
 	metrics: {
 		display: 'flex',
 		flexWrap: 'wrap',
+		marginTop: '1em',
+		padding: '1em',
 		borderRadius: '10px',
 		border: '1px solid white',
-		justifyContent: 'space-evenly',
+		justifyContent: 'space-between',
 		fill: 'white',
 	},
 	metSpan: {
@@ -54,7 +56,6 @@ const useStyles = makeStyles({
 export const MovieDetails = (props) => {
 	const classes = useStyles(props);
 	const imgUrl = apiConstants.baseImageUrl500 + props.movie.backdrop_path;
-	console.log('details', props.movie);
 
 	return (
 		<>
@@ -63,12 +64,12 @@ export const MovieDetails = (props) => {
 					<div className={classes.titleContainer}>
 						<h2 className={classes.color}>{props.movie.title || props.movie.original_name}</h2>
 						<h3 className={classes.color}>{props.movie.release_date || props.movie.first_air_date}</h3>
+						<p>{props.movie.overview}</p>
 					</div>
 					<div className={classes.imageContainer}>
-						<img alt={props.movie.title} src={imgUrl} className={classes.image} />
+						<img alt={props.movie.title || props.movie.original_name} src={imgUrl} className={classes.image} />
 					</div>
 				</div>
-				<p>{props.movie.overview}</p>
 				<Suspense fallback={<Spin size="large" />}>
 					<DetailsPane {...props} />
 				</Suspense>
@@ -84,12 +85,9 @@ const DetailsPane = (props) => {
 		props.movie.id +
 		apiConstants.urlApiKey +
 		language.en;
-	//https://api.themoviedb.org/3/movie/3840181d4403ab00da4975659f1d2dc8d6e841&language=en-US
-	console.log(movieDetailUrl);
 	const { error, data } = useFetch(movieDetailUrl);
 
 	if (!data || error) return null;
-	console.log('Details', data);
 	return (
 		<>
 			{data.last_episode_to_air && (

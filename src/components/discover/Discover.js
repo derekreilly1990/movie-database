@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useLayoutEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { MovieCase } from '../movie-case/MovieCase';
 import { useFetch } from 'react-hooks-fetch';
@@ -21,6 +21,7 @@ const useStyles = makeStyles({
 		display: 'flex',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
+		justifyContent: 'space-around',
 	},
 });
 
@@ -29,35 +30,64 @@ const Err = ({ error }) => <span>Oops Something Went Wrong:{error.message}</span
 export const Discover = () => {
 	const classes = useStyles();
 	const [activeMovie, setActiveMovie] = useState(undefined);
+	const [activeMovieIndex, setActiveMovieIndex] = useState(undefined);
+	const [detailsAfterMovieIndex, setDetailsAfterMovieIndex] = useState(undefined);
+
 	const [searchString, setSearchString] = useState(
 		apiConstants.movieDiscoverBaseUrl + apiConstants.urlApiKey + sortBy.popularityDesc
 	);
 
-	const handleMovieClicked = (movie) => {
-		console.log('Movie clicked', movie);
+	const movieRef = useRef(null);
+
+	useLayoutEffect(() => {
+		if (activeMovie && movieRef.current) {
+			let nextMovie = movieRef.current;
+			let nextLine = -1;
+			while (nextMovie) {
+				if (nextMovie.offsetTop > movieRef.current.offsetTop) {
+					break;
+				}
+				nextMovie = nextMovie.nextSibling;
+				nextLine++;
+			}
+			setDetailsAfterMovieIndex(activeMovieIndex + nextLine);
+		}
+	}, [activeMovie, activeMovieIndex]);
+
+	const handleMovieClicked = (movie, index) => {
 		if (activeMovie === movie) {
 			setActiveMovie(undefined);
 		} else {
 			setActiveMovie(movie);
+			setActiveMovieIndex(index);
 		}
 	};
 
 	return (
 		<>
-			<Search
-				placeholder="input search text"
-				enterButton="Search"
-				size="large"
-				onSearch={(value) =>
-					setSearchString(apiConstants.searcMovieBaseUrl + apiConstants.urlApiKey + '&query=' + value)
-				}
-			/>
+			<div>
+				<Search
+					placeholder="input search text"
+					enterButton="Search"
+					size="large"
+					onSearch={(value) =>
+						setSearchString(apiConstants.searcMovieBaseUrl + apiConstants.urlApiKey + '&query=' + value)
+					}
+				/>
+			</div>
 			<div className={classes.container}>
 				<SearchPanel setSearchString={setSearchString} />
 				<div>
-					{activeMovie && <MovieDetails movie={activeMovie} />}
+					{/*activeMovie && <MovieDetails movie={activeMovie} />*/}
 					<Suspense fallback={<Spin size="large" />}>
-						<ItemCollection url={searchString} onMovieClick={handleMovieClicked} />
+						<ItemCollection
+							url={searchString}
+							onMovieClick={handleMovieClicked}
+							activeMovie={activeMovie}
+							activeMovieIndex={activeMovieIndex}
+							detailsAfterMovieIndex={detailsAfterMovieIndex}
+							movieRef={movieRef}
+						/>
 					</Suspense>
 				</div>
 			</div>
@@ -67,7 +97,6 @@ export const Discover = () => {
 
 const ItemCollection = (props) => {
 	const url = props.url;
-	console.log(url);
 	const { error, data } = useFetch(url);
 	const classes = useStyles();
 	if (error) return <Err error={error} />;
@@ -77,7 +106,16 @@ const ItemCollection = (props) => {
 	return (
 		<div className={classes.cardContainer}>
 			{data.results.map((movie, index) => (
-				<MovieCase key={index} index={index} movie={movie} onClick={props.onMovieClick} />
+				<>
+					<MovieCase
+						key={index}
+						index={index}
+						movie={movie}
+						onClick={props.onMovieClick}
+						ref={index === props.activeMovieIndex ? props.movieRef : undefined}
+					/>
+					{index === props.detailsAfterMovieIndex && props.activeMovie && <MovieDetails movie={props.activeMovie} />}
+				</>
 			))}
 		</div>
 	);

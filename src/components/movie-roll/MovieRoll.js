@@ -25,7 +25,6 @@ export const MovieRoll = (props) => {
 	const [activeMovie, setActiveMovie] = useState(undefined);
 
 	const handleMovieClicked = (movie) => {
-		console.log('Movie clicked', movie);
 		if (activeMovie === movie) {
 			setActiveMovie(undefined);
 		} else {

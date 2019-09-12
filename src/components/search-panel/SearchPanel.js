@@ -37,11 +37,7 @@ function range(start, end) {
 
 export const SearchPanel = (props) => {
 	const buildString = (base, genre, sortBy, year) => {
-		console.log('building', base, genre, sortBy, year);
-		const val = base + apiConstants.urlApiKey + genre.join() + sortBy + year.join();
-
-		console.log('built', val);
-		return val;
+		return base + apiConstants.urlApiKey + genre.join() + sortBy + year.join();
 	};
 	const yearOpts = {};
 	const yearArray = [...range(1900, 2019)];
@@ -53,7 +49,6 @@ export const SearchPanel = (props) => {
 	const [genre, setGenre] = useState([]);
 	const [sortByVal, setSortByVal] = useState(sortBy.popularityDesc);
 	const [year, setYear] = useState([]);
-	console.log('render', mediaType, genre, sortByVal, year);
 
 	const onClick = () => {
 		props.setSearchString(buildString(mediaType, genre, sortByVal, year));

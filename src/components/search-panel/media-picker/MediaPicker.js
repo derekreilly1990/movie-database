@@ -9,7 +9,6 @@ export const MediaPicker = (props) => {
 		lineHeight: '30px',
 	};
 	const onChange = (e) => {
-		console.log('radio checked', e.target.value);
 		props.onChange(e.target.value);
 	};
 	return (
